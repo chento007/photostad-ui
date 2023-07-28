@@ -205,9 +205,12 @@ const UpdateForm = ({ id, title, name, description, thumbnail, htmlContent, clos
 
 
   const handleUploadImage = async (file) => {
+
     try {
 
       var formdata = new FormData();
+      formdata.append("file", file.target.files[0]);
+
       var requestOptions = {
         method: 'POST',
         body: formdata,
@@ -217,11 +220,17 @@ const UpdateForm = ({ id, title, name, description, thumbnail, htmlContent, clos
       const response = await fetch("https://photostad-api.istad.co/api/v1/files", requestOptions);
 
       const res = await response.json();
+
       const result = await res.data.name;
+
       setImgName(result);
+
       setPreview(result);
+
       setTimeout(() => {
+
         toast.success("File uploaded successfully: ", result, {
+
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -230,15 +239,24 @@ const UpdateForm = ({ id, title, name, description, thumbnail, htmlContent, clos
           draggable: true,
           progress: undefined,
           theme: "light",
+
         });
+
       }, 100);
+
       return result;
+
     } catch (error) {
+
       setTimeout(() => {
+
         if (error.status === 400) {
+
           // Bad Request error
           const errorMessage = error.data.errors[0].message;
+
           toast.error(errorMessage, {
+
             position: "top-right",
             autoClose: 2000,
             hideProgressBar: false,
@@ -247,8 +265,11 @@ const UpdateForm = ({ id, title, name, description, thumbnail, htmlContent, clos
             draggable: true,
             progress: undefined,
             theme: "light",
+
           });
+
         } else if (error.status >= 500 && error.status <= 500) {
+
           // Unauthorized error
           toast.error("Internal server error please contact CHENTO !", {
             position: "top-right",
@@ -260,7 +281,9 @@ const UpdateForm = ({ id, title, name, description, thumbnail, htmlContent, clos
             progress: undefined,
             theme: "light",
           });
+
         } else {
+
           // Other errors
           toast.error("Failed to upload file", {
             position: "top-right",
@@ -272,9 +295,13 @@ const UpdateForm = ({ id, title, name, description, thumbnail, htmlContent, clos
             progress: undefined,
             theme: "light",
           });
+
         }
+
       }, 100);
+
     }
+    
   };
 
 

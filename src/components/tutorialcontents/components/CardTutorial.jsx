@@ -2,19 +2,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const CardTutorial = ({id,slug ,name , thumbnail}) => {
+const CardTutorial = ({ uuid, slug, name, thumbnail }) => {
   return (
-    <Link href={`/tutorial/${id}/${slug}`}>
-      <div className="card w-[300px] card-image-cover">
-        <Image
-        width={300}
-        height={200}
-          src={thumbnail}
-          alt="thumbnail"
-          loading="lazy"
-        />
-        <div className="card-body w-full">
-          <h2 className="card-header">{name}</h2>
+    <Link href={`/tutorial/${uuid}/${slug}`}>
+      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-[#1e1e1e]">
+        <img className="rounded-t-lg w-full object-contain" src={thumbnail} alt="" style={{ height: "300px" }} />
+        <div className="p-5 overflow-hidden" style={{ height: "120px" }}>
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {name}
+          </h5>
         </div>
       </div>
     </Link>
