@@ -161,12 +161,15 @@ const FormUpate = ({ id, email, closeModal }) => {
     setSelectedGender(informationUser?.gender ? informationUser?.gender : "male");
     setInformation(informationUser);
   }, [informationUser, isSuccess]);
+
   if (isLoadingComponent) return <Loading />
+
   return (
     <>
       <Formik
         enableReinitialize={true}
         initialValues={{
+
           username: information?.username,
           gender: information?.gender,
           first_name: information?.givenName,
@@ -178,6 +181,7 @@ const FormUpate = ({ id, email, closeModal }) => {
           image: information?.avatar?.name,
           avatar: information?.avatar?.id,
           file: undefined,
+
         }}
 
 
@@ -202,9 +206,12 @@ const FormUpate = ({ id, email, closeModal }) => {
             const ress = await fetch(BASE_URL + "/images", request);
             const data = await ress.json();
             idImage = data?.data?.id;
+
           } else {
             idImage = values.avatar;
+
           }
+
           const rawUpdate = {
             username: values.username,
             familyName: values.last_name,
@@ -218,6 +225,7 @@ const FormUpate = ({ id, email, closeModal }) => {
           };
           try {
             const response = await updateUser({ id: id, data: rawUpdate }).unwrap();
+            
             setTimeout(() => {
               toast.success(response.message, {
                 position: "top-right",
@@ -230,6 +238,7 @@ const FormUpate = ({ id, email, closeModal }) => {
                 theme: "light",
               });
             }, 100)
+
           } catch (error) {
             setTimeout(() => {
               toast.error(error.data.errors[0].message, {
@@ -370,7 +379,7 @@ const FormUpate = ({ id, email, closeModal }) => {
                     htmlFor="gender"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   >
-                    date of birth
+                    Date of birth
                   </label>
                   <div class="absolute top-[41px] left-0 flex items-center pl-3 pointer-events-none">
                     <svg
@@ -447,7 +456,7 @@ const FormUpate = ({ id, email, closeModal }) => {
                 />
               </div>
               <div className=" mb-6 w-full ">
-                <label htmlFor="file" className="mb-1">
+                <label htmlFor="file"   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Avatar
                 </label>
 
